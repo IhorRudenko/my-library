@@ -198,6 +198,11 @@
   width: 100%;
 }
 
+.list__body.list-view .list__item.active .book-description.active {
+   max-height: 300px;
+   overflow: scroll;
+}
+
 .list__item-inner {
    grid-column: 1;
    /* padding: 5px 0; */
