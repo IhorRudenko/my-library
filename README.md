@@ -1,7 +1,13 @@
-📚 Bibliothek App – Testaufgabe
+# 📚 Bibliothek App – Testaufgabe
 
 Dieses Projekt wurde im Rahmen der technischen Einstellungsaufgabe für die Stelle Fachinformatiker für Anwendungsentwicklung  erstellt.
 
+### 🌐 Live-Demo
+
+Dieses Projekt ist online verfügbar unter:
+https://library-app-git-library-debug-ihor-rudenkos-projects.vercel.app/
+
+---
 
 ### 🚀 Funktionen
 
@@ -17,6 +23,7 @@ Dieses Projekt wurde im Rahmen der technischen Einstellungsaufgabe für die Stel
 💾 Speicherung der Bücher in einer lokalen Datei books.json (Backend)
 🛠 Technologien
 
+---
 
 ### 🔹 Backend
 
@@ -25,6 +32,7 @@ Express
 TypeScript
 Datenspeicherung in JSON (books.json)
 
+---
 
 ### 🔹 Frontend
 
@@ -33,6 +41,7 @@ TypeScript
 Axios (für HTTP-Anfragen)
 SCSS
 
+---
 
 ### 📦 Lokale Ausführung
 
@@ -48,33 +57,7 @@ cd frontend
 npm install
 npm start
 
-
-### 🧭 Projektstruktur
-
-my-library/
-├── backend/
-│   ├── books.json           # Lokale \"Datenbank\" für Bücher
-│   ├── server.ts            # Express-Server
-│   ├── package.json         # Abhängigkeiten
-│   └── tsconfig.json        # TypeScript-Konfiguration
-│
-├── frontend/
-│   ├── src/
-│   │   ├── App.tsx
-│   │   ├── components/
-│   │   │   ├── AddBook.tsx
-│   │   │   ├── BookList.tsx
-│   │   │   ├── ReadingList.tsx
-│   │   │   ├── Tabs.tsx
-│   │   │   ├── ViewToggle.tsx
-│   │   │   └── SearchBar.tsx
-│   ├── public/
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── .gitignore
-├── README.md
-
+---
 
 ### 🌐 Deployment
 
@@ -86,12 +69,7 @@ my-library/
 
 - **Database** [MongoDB](https://cloud.mongodb.com/v2/67e48e3f1277ab205688d46a#/clusters)
 
-
-### 🌐 Live-Demo
-
-Dieses Projekt ist online verfügbar unter:
-https://library-app-git-library-debug-ihor-rudenkos-projects.vercel.app/
-
+---
 
 ### 📝 Zukünftige Verbesserungen
 
@@ -100,6 +78,7 @@ https://library-app-git-library-debug-ihor-rudenkos-projects.vercel.app/
 💽 Umstieg von books.json auf echte Datenbank (z. B. MongoDB, SQLite)
 ...
 
+---
 
 ### 📧 Kontakt
 
