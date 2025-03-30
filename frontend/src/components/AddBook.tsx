@@ -128,12 +128,14 @@ const AddBook: React.FC<AddBookProps> = ({ books, setBooks }) => {
 
         <input className="add-book__input add-book__input--year input"
           type="number"
+          inputMode="numeric"
+          maxLength={4} 
           placeholder="Jahr*"
           value={year}
           onChange={(e) => {
             const value = e.target.value;
-            // Забороняємо мінуси
-            if (!value.includes("-")) {
+            // Забороняємо мінуси та обмежуємо довжину до 4 цифр
+            if (!value.includes("-") && /^\d{0,4}$/.test(value)) {
               setYear(value === "" ? "" : Number(value));
             }
           }}
