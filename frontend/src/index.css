@@ -317,3 +317,28 @@ select:focus {
 .genre-group {
   margin-bottom: 50px;
 }
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
+  font-size: 24px;
+  border-radius: 50%;
+  border: none;
+  background-color: #27367b;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1000;
+  transition: opacity 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-to-top:hover {
+  background-color: orange;
+  transition: opacity 0.2s ease-in-out;
+}

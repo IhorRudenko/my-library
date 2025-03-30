@@ -6,6 +6,7 @@ import BookList from "./components/BookList";
 import ReadingList from "./components/ReadingList";
 import ViewToggle from "./components/ViewToggle";
 import { Book } from "./types/types";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 import './media-style/App.scss';
 
@@ -37,7 +38,7 @@ const App: React.FC = () => {
       throw new Error(`❌ Статус ${response.status}: ${text}`);
     }
 
-const data = await response.json();
+    const data = await response.json();
   
     const booksWithId = data.map((book: any) => ({
       ...book,
@@ -101,7 +102,7 @@ const data = await response.json();
 
   // const [image, setImage] = useState("");
 
-  const [readingListViewMode, setReadingListViewMode] = useState<"grid" | "list">("list");
+  // const [readingListViewMode, setReadingListViewMode] = useState<"grid" | "list">("list");
 
   const handleDeleteBook = async (id: number) => {
     try {
@@ -124,9 +125,7 @@ const data = await response.json();
         }
       };
       
-      
-
-  
+     
       // Оновлення списку книг
       setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
   
@@ -165,11 +164,14 @@ const data = await response.json();
 
   console.log("📦 API URL:", apiUrl);
 
+
+  
+
   // ----------------------------------------------------------------------------------
 
   return (
     <div className="App">
-        <header className={`header ${scrolled ? "scrolled" : ""}`}>
+      <header className={`header ${scrolled ? "scrolled" : ""}`}>
           <div className="container header__container">
             <div className="header__inner">
 
@@ -269,11 +271,12 @@ const data = await response.json();
           )}
         </div>
       </div>
-      
-      
+
+      <>
+        <ScrollToTopButton />
+      </>
     </div>
   );
-  
 };
 
 export default App;
