@@ -1,88 +1,72 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import fs from "fs";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
+import path from "path";
 
 dotenv.config();
 
 const app = express();
+app.use(express.json({ limit: "15mb" }));
+app.use(cors());
+app.use(bodyParser.json({ limit: "5mb" }));
 
-// 🔥 Ставимо CORS до всього решти
-app.use(cors({
-  origin: "*", // ⬅ тимчасово дозволяємо всі (або localhost:3000)
-  methods: ["GET", "POST", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+const booksFile = path.join(__dirname, "books.json");
 
-// 🔥 Додаткові заголовки на всякий випадок
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // або твій фронт
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  next();
-});
+// 📌 Функція для завантаження книг з файлу (якщо файл є)
+const loadBooks = (): any[] => {
+  try {
+    if (!fs.existsSync(booksFile)) {
+      fs.writeFileSync(booksFile, "[]", "utf-8"); // ✅ Створюємо файл, якщо його немає
+    }
+    const data = fs.readFileSync(booksFile, "utf-8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("❌ Помилка читання books.json:", error);
+    return [];
+  }
+};
 
-app.use(bodyParser.json({ limit: "10mb" }));
-app.use(express.json({ limit: "10mb" }));
+// 📌 Функція для запису книг у файл
+const saveBooks = (books: any[]) => {
+  try {
+    fs.writeFileSync(booksFile, JSON.stringify(books, null, 2), "utf-8"); // ✅ Записуємо у файл
+  } catch (error) {
+    console.error("❌ Помилка запису у books.json:", error);
+  }
+};
 
-// 🔌 Підключення до MongoDB Atlas
-const mongoURI = process.env.MONGODB_URI || "mongodb+srv://Ihor:oc2vi73f3@cluster0.tkykq8y.mongodb.net/library?retryWrites=true&w=majority&appName=Cluster0";
+let books = loadBooks(); // ✅ Завантажуємо книги при старті сервера
 
-mongoose
-  .connect(mongoURI)
-  .then(() => console.log("✅ Підключено до MongoDB"))
-  .catch((err) => console.error("❌ Помилка MongoDB:", err));
-
-// 📘 Модель книги
-const bookSchema = new mongoose.Schema({
-  title: String,
-  author: String,
-  year: Number,
-  description: String,
-  image: String,
-  genre: String,
-});
-
-const Book = mongoose.model("Book", bookSchema);
 
 // 📌 Отримати всі книги
-app.get("/api/books", async (req, res) => {
-  try {
-    const books = await Book.find();
-    res.json(books);
-  } catch (err) {
-    res.status(500).json({ error: "Помилка отримання книг" });
-  }
+app.get("/api/books", (req, res) => {
+  books = loadBooks(); // ✅ Оновлюємо книги перед відправкою
+  res.json(books);
 });
 
 // 📌 Додати нову книгу
-app.post("/api/books", async (req, res) => {
-  try {
-    console.log("📥 Дані з форми:", req.body); // Додай сюди
-
-    const newBook = new Book(req.body);
-    const saved = await newBook.save();
-    res.status(201).json(saved);
-  } catch (err) {
-    console.error("❌ Помилка при додаванні:", err); // І лог помилки
-    res.status(500).json({ error: "Помилка при додаванні книги" });
-  }
+app.post("/books", (req, res) => {
+  books = loadBooks(); // ✅ Оновлюємо список перед додаванням
+  const newBook = { id: Date.now(), ...req.body };
+  books.push(newBook);
+  saveBooks(books); // ✅ Записуємо у файл
+  res.status(201).json(newBook);
 });
 
 // 📌 Видалити книгу за ID
-app.delete("/api/books/:id", async (req, res) => {
-  try {
-    await Book.findByIdAndDelete(req.params.id);
-    res.json({ message: "✅ Книга видалена" });
-  } catch (err) {
-    res.status(500).json({ error: "Помилка при видаленні" });
-  }
+app.delete("/books/:id", (req, res) => {
+  books = loadBooks(); // ✅ Оновлюємо список перед видаленням
+  const bookId = parseInt(req.params.id);
+  books = books.filter((book) => book.id !== bookId);
+  saveBooks(books); // ✅ Записуємо оновлений список у файл
+  res.json({ message: "✅ Книга видалена" });
 });
 
 // 📌 Запуск сервера
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`✅ Сервер працює на порті ${PORT}`);
+  console.log(`✅ Сервер працює на http://localhost:${PORT}`);
 });

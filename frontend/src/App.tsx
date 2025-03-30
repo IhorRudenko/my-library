@@ -6,26 +6,14 @@ import BookList from "./components/BookList";
 import ReadingList from "./components/ReadingList";
 import ViewToggle from "./components/ViewToggle";
 import { Book } from "./types/types";
+
 import './media-style/App.scss';
-
-
-
-const API = "https://my-library-backend-swb1.onrender.com/api";
 
 type BookWithStatus = Book & {
   read: boolean;
 };
 
 const App: React.FC = () => {
-  
-  const deleteBook = async (id: string) => {
-    const res = await fetch(`${API}/books/${id}`, {
-      method: "DELETE",
-    });
-    if (!res.ok) {
-      throw new Error("❌ Не вдалося видалити книгу");
-    }
-  };
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -70,9 +58,9 @@ const data = await response.json();
 
   const toggleReadingList = (book: Book) => {
     setReadingList((prevList) => {
-      const isAlreadyAdded = prevList.some((b) => b.id === book._id || book.id);
+      const isAlreadyAdded = prevList.some((b) => b.id === book.id);
       if (isAlreadyAdded) {
-        return prevList.filter((b) => b.id !== book._id || book.id);
+        return prevList.filter((b) => b.id !== book.id);
       } else {
         return [...prevList, { ...book, read: false }]; // додаємо з read
       }
@@ -82,12 +70,12 @@ const data = await response.json();
   
   const toggleReadStatus = (id: number) => {
     setReadingList(readingList.map(book =>
-      book._id || book.id === id ? { ...book, read: !book.read } : book
+      book.id === id ? { ...book, read: !book.read } : book
     ));
   };
   
   const removeFromReadingList = (id: number) => {
-    setReadingList(readingList.filter(book => book._id || book.id !== id));
+    setReadingList(readingList.filter(book => book.id !== id));
   };
 
   const [activeTab, setActiveTab] = useState<"all" | "readingList">("all");
@@ -115,32 +103,46 @@ const data = await response.json();
 
   const [readingListViewMode, setReadingListViewMode] = useState<"grid" | "list">("list");
 
-  const handleDeleteBook = async (id: string) => {
+  const handleDeleteBook = async (id: number) => {
     try {
-      await deleteBook(id);
+      // Видалення з сервера (json-server)
+      const handleDeleteBook = async (id: number) => {
+        try {
+          await fetch(`${apiUrl}/books/${id}`, {
+            method: "DELETE",
+          });
+      
+          setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
+          setReadingList((prevList) => prevList.filter((book) => book.id !== id));
+      
+          localStorage.setItem(
+            "readingList",
+            JSON.stringify(readingList.filter((book) => book.id !== id))
+          );
+        } catch (error) {
+          console.error("❌ Помилка при видаленні книги:", error);
+        }
+      };
+      
+      
+
   
       // Оновлення списку книг
-      setBooks((prevBooks) =>
-        prevBooks.filter((book) => (book._id || String(book.id)) !== id)
-      );
+      setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
   
       // Оновлення списку для читання
-      setReadingList((prevList) =>
-        prevList.filter((book) => (book._id || String(book.id)) !== id)
-      );
+      setReadingList((prevList) => prevList.filter((book) => book.id !== id));
   
       // Оновлення localStorage
       localStorage.setItem(
         "readingList",
-        JSON.stringify(
-          readingList.filter((book) => (book._id || String(book.id)) !== id)
-        )
+        JSON.stringify(readingList.filter((book) => book.id !== id))
       );
     } catch (error) {
       console.error("❌ Помилка під час видалення книги:", error);
     }
   };
-  
+
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {

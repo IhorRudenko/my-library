@@ -1,13 +1,11 @@
 export type Book = {
-  _id?: string;
-  id?: number;
+  id: number;
   title: string;
   author: string;
   year: number;
-  description?: string;
-  image?: string;
-  genre?: string;
-  read?: boolean;
+  image: string;
+  description: string;
+  genre: string | string[]; // ← це важливо!
 };
 
 
