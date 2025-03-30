@@ -320,7 +320,7 @@ select:focus {
 
 .scroll-to-top {
   position: fixed;
-  bottom: 30px;
+  bottom: 40px;
   right: 25px;
   width: 50px;
   height: 50px;
@@ -341,4 +341,19 @@ select:focus {
 .scroll-to-top:hover {
   background-color: orange;
   transition: opacity 0.2s ease-in-out;
+}
+
+footer {
+  background-color: #27367b;
+}
+
+.footer__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
 }

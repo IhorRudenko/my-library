@@ -275,7 +275,16 @@ const App: React.FC = () => {
       <>
         <ScrollToTopButton />
       </>
+
+      <footer>
+        <div className="container footer__container">
+          <div>
+            Designed & Developed by Ihor Rudenko - 2025
+          </div>
+        </div>
+      </footer>
     </div>
+
   );
 };
 
