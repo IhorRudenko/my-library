@@ -66,7 +66,7 @@ import { BookWithStatus } from "../types/types";
                   e.stopPropagation(); 
                   toggleReadStatus(book.id);
                 }}
-                className={`list__item-btn ${book.read ? "read" : ""}`}
+                className={`list__item-btn btn-read ${book.read ? "read" : ""}`}
               >
                   
                 {book.read ? "gelesen" : "ungelesen"}
