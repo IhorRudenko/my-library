@@ -3,7 +3,7 @@
 Dieses Projekt wurde im Rahmen der technischen Einstellungsaufgabe für die Stelle Fachinformatiker für Anwendungsentwicklung  erstellt.
 
 
-🚀 Funktionen
+### 🚀 Funktionen
 
 📖 Liste aller Bücher anzeigen
 ➕ Neues Buch hinzufügen
@@ -18,7 +18,7 @@ Dieses Projekt wurde im Rahmen der technischen Einstellungsaufgabe für die Stel
 🛠 Technologien
 
 
-🔹 Backend
+### 🔹 Backend
 
 Node.js
 Express
@@ -26,7 +26,7 @@ TypeScript
 Datenspeicherung in JSON (books.json)
 
 
-🔹 Frontend
+### 🔹 Frontend
 
 React
 TypeScript
@@ -34,7 +34,7 @@ Axios (für HTTP-Anfragen)
 SCSS
 
 
-📦 Lokale Ausführung
+### 📦 Lokale Ausführung
 
 🔧 Backend starten
 
@@ -42,19 +42,14 @@ cd backend
 npm install
 npx ts-node server.ts
 
-Server wird auf http://localhost:3001 ausgeführt.
-
-
 🌐 Frontend starten
 
 cd frontend
 npm install
 npm start
 
-App ist unter http://localhost:3000 erreichbar.
 
-
-🧭 Projektstruktur
+### 🧭 Projektstruktur
 
 my-library/
 ├── backend/
@@ -81,22 +76,37 @@ my-library/
 ├── README.md
 
 
-🌐 Live-Demo
+### 🌐 Deployment
 
-Die Anwendung ist online verfügbar: library-app.vercel.app
+- **Frontend** [Vercel](https://vercel.com):  
+  🔗 https://vercel.com/ihor-rudenkos-projects/library-app
 
-📝 Zukünftige Verbesserungen
+- **Backend** [Render](https://render.com):  
+  🔗 https://dashboard.render.com/web/srv-cvilvlhr0fns73cqkgu0
+
+- **Database** [MongoDB](https://cloud.mongodb.com/v2/67e48e3f1277ab205688d46a#/clusters)
+
+
+### 🌐 Live-Demo
+
+Dieses Projekt ist online verfügbar unter:
+https://library-app-git-library-debug-ihor-rudenkos-projects.vercel.app/
+
+
+### 📝 Zukünftige Verbesserungen
+
 ✏️ Bücher bearbeiten (nicht nur löschen)
 🔐 Benutzer-Login-System
 💽 Umstieg von books.json auf echte Datenbank (z. B. MongoDB, SQLite)
 ...
 
 
-📧 Kontakt
+### 📧 Kontakt
 
 Autor: Ihor Rudenko📬 
 E-Mail: i.rudenko108@gmail.com🌐 
 GitHub: github.com/IhorRudenko
+
 
 
 
