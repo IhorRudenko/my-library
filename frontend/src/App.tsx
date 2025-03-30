@@ -170,7 +170,7 @@ const App: React.FC = () => {
   // ----------------------------------------------------------------------------------
 
   return (
-    <div className="App">
+    <div className="App app-body">
       <header className={`header ${scrolled ? "scrolled" : ""}`}>
           <div className="container header__container">
             <div className="header__inner">
